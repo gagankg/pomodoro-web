@@ -128,13 +128,13 @@ export default function Controls({
   }
 
   return (
-    <div className="flex items-center px-3 py-3 gap-3">
+    <div className="flex items-center px-3 py-3 gap-2">
       {/* START */}
       <div className="flex flex-col items-center gap-1">
         <span className="silk-label">{startLabel}</span>
         <HwButton
           className="start-button"
-          style={{ width: 52, height: 40, fontSize: 10, fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase' }}
+          style={{ width: 48, height: 38, fontSize: 10, fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase' }}
           onClick={handleStart}
           ariaLabel={startAriaLabel}
         >
@@ -146,7 +146,7 @@ export default function Controls({
       <div className="flex flex-col items-center gap-1">
         <span className="silk-label">RESET</span>
         <HwButton
-          style={{ width: 36, height: 36, fontSize: 14, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+          style={{ width: 32, height: 32, fontSize: 14, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
           onClick={handleReset}
           ariaLabel="Reset timer"
         >
@@ -158,7 +158,7 @@ export default function Controls({
       <div className="flex flex-col items-center gap-1">
         <span className="silk-label">SKIP</span>
         <HwButton
-          style={{ width: 36, height: 36, fontSize: 14, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+          style={{ width: 32, height: 32, fontSize: 13, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
           onClick={handleSkip}
           ariaLabel="Skip to next phase"
         >
@@ -167,7 +167,7 @@ export default function Controls({
       </div>
 
       {/* Separator */}
-      <div className="hw-separator" style={{ margin: '0 2px' }} />
+      <div className="hw-separator" style={{ margin: '0 1px' }} />
 
       {/* Focus stepper */}
       <Stepper
