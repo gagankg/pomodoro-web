@@ -1,0 +1,324 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-body:        #D4D0C8;
+  --bg-display:     #141412;
+  --bg-button:      #C2BEB6;
+  --bg-button-dark: #2A2A28;
+  --accent:         #E8500A;
+  --text-display:   #E8E4D8;
+  --text-label:     #7A7570;
+  --text-dim:       #4A4845;
+  --border-inset:   #A8A49C;
+  --lcd-green:      #4ADE80;
+  --lcd-dim:        #3A3A38;
+  --knob-body:      #3A3835;
+  --knob-marker:    #E8E4D8;
+  --toggle-on:      #4ADE80;
+  --toggle-off:     #3A3A38;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #111110;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'DM Mono', monospace;
+  overflow-x: auto;
+}
+
+:focus-visible {
+  outline: 2px solid #E8500A;
+  outline-offset: 2px;
+}
+
+/* ── Device casing ── */
+.device-casing {
+  width: 480px;
+  min-width: 480px;
+  background: linear-gradient(160deg, #DEDAD2 0%, #C8C4BC 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.6),
+    inset 0 -1px 0 rgba(0,0,0,0.15),
+    0 4px 24px rgba(0,0,0,0.25),
+    0 1px 4px rgba(0,0,0,0.2);
+  border-radius: 12px;
+}
+
+/* ── LCD panel ── */
+.lcd-panel {
+  background: #141412;
+  box-shadow:
+    inset 0 2px 8px rgba(0,0,0,0.8),
+    inset 0 0 0 1px rgba(0,0,0,0.5);
+  border-radius: 4px;
+}
+
+.lcd-flicker {
+  animation: lcd-flicker 200ms ease-in-out;
+}
+
+@keyframes lcd-flicker {
+  0%   { opacity: 1; }
+  40%  { opacity: 0.6; }
+  100% { opacity: 1; }
+}
+
+/* ── Hardware button (rest) ── */
+.hw-button {
+  background: linear-gradient(180deg, #CECAC2 0%, #B8B4AC 100%);
+  box-shadow:
+    0 2px 0 #8A8680,
+    0 3px 4px rgba(0,0,0,0.3),
+    inset 0 1px 0 rgba(255,255,255,0.5);
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-family: 'DM Mono', monospace;
+  color: var(--text-dim);
+  user-select: none;
+}
+
+.hw-button:active,
+.hw-button.pressed {
+  box-shadow:
+    0 0px 0 #8A8680,
+    inset 0 2px 4px rgba(0,0,0,0.4);
+  transform: translateY(2px);
+  transition: none;
+}
+
+/* ── START button (orange) ── */
+.start-button {
+  background: linear-gradient(180deg, #F06020 0%, #C84010 100%);
+  box-shadow:
+    0 3px 0 #882808,
+    0 4px 6px rgba(0,0,0,0.4),
+    inset 0 1px 0 rgba(255,255,255,0.2);
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-family: 'DM Mono', monospace;
+  color: #fff;
+  user-select: none;
+}
+
+.start-button:active,
+.start-button.pressed {
+  box-shadow:
+    0 0px 0 #882808,
+    inset 0 2px 4px rgba(0,0,0,0.4);
+  transform: translateY(2px);
+  transition: none;
+}
+
+/* ── Dark button (steppers) ── */
+.hw-button-dark {
+  background: linear-gradient(180deg, #3A3A38 0%, #222220 100%);
+  box-shadow:
+    0 2px 0 #111110,
+    0 3px 4px rgba(0,0,0,0.4),
+    inset 0 1px 0 rgba(255,255,255,0.06);
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  font-family: 'DM Mono', monospace;
+  color: var(--text-display);
+  user-select: none;
+}
+
+.hw-button-dark:active,
+.hw-button-dark.pressed {
+  box-shadow:
+    0 0px 0 #111110,
+    inset 0 2px 4px rgba(0,0,0,0.5);
+  transform: translateY(2px);
+  transition: none;
+}
+
+/* ── Sound selector ── */
+.sound-tab-active {
+  background: #2A2A28;
+  color: #E8E4D8;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.6);
+  border-radius: 3px;
+}
+
+.sound-tab-inactive {
+  background: transparent;
+  color: var(--text-dim);
+}
+
+/* ── Dot grid (header corner) ── */
+.dot-grid {
+  width: 48px;
+  height: 24px;
+  background-image: radial-gradient(circle, #A8A49C 1px, transparent 1px);
+  background-size: 6px 6px;
+  opacity: 0.6;
+  flex-shrink: 0;
+}
+
+/* ── Silk-screen label ── */
+.silk-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-label);
+  display: block;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* ── Timer digits ── */
+.timer-digits {
+  font-family: 'Share Tech Mono', monospace;
+  color: var(--text-display);
+}
+
+/* ── Volume knob ── */
+.volume-knob {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #5A5550, #2A2520);
+  box-shadow:
+    0 3px 0 #1A1510,
+    0 4px 8px rgba(0,0,0,0.5),
+    inset 0 1px 0 rgba(255,255,255,0.1);
+  position: relative;
+  cursor: grab;
+  flex-shrink: 0;
+  user-select: none;
+}
+
+.volume-knob:active {
+  cursor: grabbing;
+}
+
+.knob-marker {
+  position: absolute;
+  width: 2px;
+  height: 10px;
+  background: var(--knob-marker);
+  left: 50%;
+  top: 5px;
+  transform-origin: 1px 15px;
+  margin-left: -1px;
+  border-radius: 1px;
+}
+
+/* ── Rocker toggle housing ── */
+.toggle-housing {
+  width: 28px;
+  height: 16px;
+  border-radius: 3px;
+  background: #1A1A18;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.8);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1px 2px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* ── Session dot ── */
+.session-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.session-dot-active {
+  background: var(--lcd-green);
+  box-shadow: 0 0 4px var(--lcd-green);
+}
+
+.session-dot-done {
+  background: var(--border-inset);
+}
+
+.session-dot-empty {
+  background: var(--lcd-dim);
+  border: 1px solid #2A2A28;
+}
+
+/* ── Stepper display ── */
+.stepper-display {
+  background: #1A1A18;
+  color: var(--text-display);
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  text-align: center;
+  border: none;
+  outline: none;
+  width: 28px;
+  border-radius: 2px;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.6);
+}
+
+.stepper-display:focus {
+  outline: 2px solid #E8500A;
+  outline-offset: 1px;
+}
+
+/* ── Phase indicator dot ── */
+.phase-dot-active {
+  color: var(--lcd-green);
+  text-shadow: 0 0 6px var(--lcd-green);
+}
+
+.phase-dot-inactive {
+  color: var(--lcd-dim);
+}
+
+/* ── Task input ── */
+.task-input {
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: 'DM Mono', monospace;
+  color: var(--text-display);
+  caret-color: var(--lcd-green);
+  width: 100%;
+}
+
+.task-input::placeholder {
+  color: var(--text-dim);
+}
+
+/* ── Task queue items ── */
+.task-item-done {
+  opacity: 0.35;
+  text-decoration: line-through;
+}
+
+/* ── Separator dot ── */
+.hw-separator {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--border-inset);
+  flex-shrink: 0;
+}
+
+/* ── Resume notice ── */
+.resume-notice {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--lcd-green);
+  opacity: 0.7;
+}

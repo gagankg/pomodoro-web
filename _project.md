@@ -1,0 +1,13 @@
+# Pomodoro Web (PM-25)
+
+## What It Is
+A Pomodoro timer built to feel like a physical Teenage Engineering instrument — fixed-width device rendered in the browser.
+
+## Stack
+React (Vite), Tailwind (layout/spacing only), CSS variables (all surface aesthetics), Web Audio API, Browser Notifications API, localStorage
+
+## Goal
+A fully functional Pomodoro timer with hardware-instrument aesthetic: fixed 480px device body, LCD display panel, hardware buttons, rocker toggles, volume knob, synthesized ambient audio, and task queue.
+
+## Log
+2026-03-08 — Initial project scaffold from INIT.md spec
