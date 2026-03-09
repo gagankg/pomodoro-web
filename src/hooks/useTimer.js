@@ -1,6 +1,6 @@
 import { useReducer, useEffect, useRef, useCallback } from 'react';
 
-const DEFAULT_FOCUS = 15;
+const DEFAULT_FOCUS = 25;
 const DEFAULT_BREAK = 5;
 
 function makeInitialState(focusDuration, breakDuration) {
@@ -32,6 +32,9 @@ function timerReducer(state, action) {
         : state.breakDuration * 60;
       return { ...state, mode: 'idle', remaining };
     }
+
+    case 'FULL_RESET':
+      return makeInitialState(DEFAULT_FOCUS, DEFAULT_BREAK);
 
     case 'SKIP': {
       const completedFocus = state.phase === 'focus';
@@ -176,6 +179,7 @@ export function useTimer({
   const pause = useCallback(() => dispatch({ type: 'PAUSE' }), []);
   const resume = useCallback(() => dispatch({ type: 'RESUME' }), []);
   const reset = useCallback(() => dispatch({ type: 'RESET' }), []);
+  const fullReset = useCallback(() => dispatch({ type: 'FULL_RESET' }), []);
   const skip = useCallback(() => dispatch({ type: 'SKIP' }), []);
   const restore = useCallback((payload) => dispatch({ type: 'RESTORE', payload }), []);
   const setFocusDuration = useCallback((v) =>
@@ -189,6 +193,7 @@ export function useTimer({
     pause,
     resume,
     reset,
+    fullReset,
     skip,
     restore,
     setFocusDuration,
