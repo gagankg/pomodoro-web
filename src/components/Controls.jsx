@@ -130,49 +130,50 @@ export default function Controls({
   return (
     <div className="flex flex-col px-3 pt-3 pb-3 gap-0">
       {/* ── Row 1: playback + duration + volume ── */}
-      <div className="flex items-center gap-3">
-        {/* START */}
-        <div className="flex flex-col items-center gap-1">
-          <span className="silk-label">{startLabel}</span>
-          <HwButton
-            className="start-button"
-            style={{ width: 48, height: 38, fontSize: 10, fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase' }}
-            onClick={handleStart}
-            ariaLabel={startAriaLabel}
-          >
-            {startLabel}
-          </HwButton>
-        </div>
+      <div className="flex items-center justify-between">
+        {/* Left group: playback + duration */}
+        <div className="flex items-center gap-3">
+          {/* START */}
+          <div className="flex flex-col items-center gap-1">
+            <span className="silk-label">{startLabel}</span>
+            <HwButton
+              className="start-button"
+              style={{ width: 48, height: 38, fontSize: 10, fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase' }}
+              onClick={handleStart}
+              ariaLabel={startAriaLabel}
+            >
+              {startLabel}
+            </HwButton>
+          </div>
 
-        {/* RESET */}
-        <div className="flex flex-col items-center gap-1">
-          <span className="silk-label">RESET</span>
-          <HwButton
-            style={{ width: 32, height: 32, fontSize: 14, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-            onClick={handleReset}
-            ariaLabel="Reset timer"
-          >
-            ↺
-          </HwButton>
-        </div>
+          {/* RESET */}
+          <div className="flex flex-col items-center gap-1">
+            <span className="silk-label">RESET</span>
+            <HwButton
+              style={{ width: 32, height: 32, fontSize: 14, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+              onClick={handleReset}
+              ariaLabel="Reset timer"
+            >
+              ↺
+            </HwButton>
+          </div>
 
-        {/* SKIP */}
-        <div className="flex flex-col items-center gap-1">
-          <span className="silk-label">SKIP</span>
-          <HwButton
-            style={{ width: 32, height: 32, fontSize: 13, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-            onClick={handleSkip}
-            ariaLabel="Skip to next phase"
-          >
-            ⏭
-          </HwButton>
-        </div>
+          {/* SKIP */}
+          <div className="flex flex-col items-center gap-1">
+            <span className="silk-label">SKIP</span>
+            <HwButton
+              style={{ width: 32, height: 32, fontSize: 13, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+              onClick={handleSkip}
+              ariaLabel="Skip to next phase"
+            >
+              ⏭
+            </HwButton>
+          </div>
 
-        {/* Separator */}
-        <div className="hw-separator" style={{ margin: '0 2px' }} />
+          {/* Separator */}
+          <div className="hw-separator" style={{ margin: '0 2px' }} />
 
-        {/* FOCUS + BREAK stacked */}
-        <div className="flex flex-col gap-2">
+          {/* FOCUS + BREAK side by side */}
           <Stepper
             label="FOCUS"
             value={focusDuration}
@@ -189,7 +190,7 @@ export default function Controls({
           />
         </div>
 
-        {/* Volume knob */}
+        {/* Volume knob — right end */}
         <VolumeKnob
           volume={volume}
           onVolumeChange={onVolumeChange}
