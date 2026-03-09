@@ -14,7 +14,7 @@ function makeTask(name, note = '') {
 
 export default function App() {
   // ── Persisted settings ──
-  const [focusDuration, setFocusDuration] = useLocalStorage('pomo_focus_duration', 15);
+  const [focusDuration, setFocusDuration] = useLocalStorage('pomo_focus_duration', 25);
   const [breakDuration, setBreakDuration] = useLocalStorage('pomo_break_duration', 5);
   const [soundMode, setSoundMode] = useLocalStorage('pomo_sound_mode', 'OFF');
   const [volume, setVolume] = useLocalStorage('pomo_volume', 0.5);
@@ -235,8 +235,12 @@ export default function App() {
   function handleReset() {
     initSound();
     sound.sounds.reset();
-    timer.reset();
+    timer.fullReset();
+    setFocusDuration(25);
+    setBreakDuration(5);
+    setTaskQueue([]);
     sound.stopAmbient();
+    localStorage.removeItem('pomo_timer_snapshot');
   }
 
   function handleSkip() {
