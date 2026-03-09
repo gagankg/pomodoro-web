@@ -299,7 +299,7 @@ export default function App() {
   }
 
   return (
-    <div style={{ padding: 24, minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+    <div style={{ padding: 24, minHeight: '100vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 24 }}>
       <Device
         timerMode={timer.state.mode}
         timerPhase={timer.state.phase}
@@ -329,6 +329,23 @@ export default function App() {
         onDismissNotice={() => setResumeNotice(false)}
         flicker={flicker}
       />
+
+      <div style={{
+        fontFamily: "'DM Mono', monospace",
+        color: '#4A4845',
+        textAlign: 'center',
+        lineHeight: 1.6,
+      }}>
+        <p style={{ fontSize: 11, letterSpacing: '0.05em', marginBottom: 10 }}>
+          A Pomodoro timer built to feel like a Teenage Engineering instrument.
+        </p>
+        <div style={{ display: 'flex', gap: 20, justifyContent: 'center', fontSize: 10, letterSpacing: '0.08em' }}>
+          <span><span style={{ color: '#7A7570' }}>SPACE</span> start / pause</span>
+          <span><span style={{ color: '#7A7570' }}>R</span> reset</span>
+          <span><span style={{ color: '#7A7570' }}>S</span> skip</span>
+          <span><span style={{ color: '#7A7570' }}>↑ ↓</span> volume</span>
+        </div>
+      </div>
     </div>
   );
 }
