@@ -1,7 +1,8 @@
 # Pomodoro Web (PM-25)
 
 ## What It Is
-A Pomodoro timer built to feel like a physical Teenage Engineering instrument — fixed-width device rendered in the browser.
+A Pomodoro timer built to feel like a physical Teenage Engineering instrument.
+Work in focused sprints, take short breaks, and get more done
 
 ## Stack
 React (Vite), Tailwind (layout/spacing only), CSS variables (all surface aesthetics), Web Audio API, Browser Notifications API, localStorage
