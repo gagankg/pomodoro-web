@@ -87,7 +87,7 @@ export default function Device({
 
       {/* ── Controls row ── */}
       <div style={{
-        background: 'linear-gradient(180deg, #D0CCC4 0%, #C2BEB8 100%)',
+        background: 'linear-gradient(180deg, #D0D0CC 0%, #C0C0BC 100%)',
         borderRadius: 8,
         boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.4), inset 0 -1px 0 rgba(0,0,0,0.1)',
       }}>
