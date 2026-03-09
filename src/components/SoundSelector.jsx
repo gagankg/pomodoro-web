@@ -5,8 +5,8 @@ export default function SoundSelector({ mode, onSelect }) {
     <div
       className="flex items-center"
       style={{
-        background: 'linear-gradient(180deg, #C0BCB4 0%, #B0ACA4 100%)',
-        boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.2), inset 0 -1px 0 rgba(255,255,255,0.3)',
+        background: 'linear-gradient(180deg, #C4C4C0 0%, #B4B4B0 100%)',
+        boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.18), inset 0 -1px 0 rgba(255,255,255,0.25)',
         padding: '6px 12px',
         gap: 4,
       }}

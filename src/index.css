@@ -3,21 +3,21 @@
 @tailwind utilities;
 
 :root {
-  --bg-body:        #D4D0C8;
-  --bg-display:     #141412;
-  --bg-button:      #C2BEB6;
-  --bg-button-dark: #2A2A28;
-  --accent:         #E8500A;
+  --bg-body:        #D2D2CE;
+  --bg-display:     #111110;
+  --bg-button:      #C8C8C4;
+  --bg-button-dark: #242422;
+  --accent:         #FF5500;
   --text-display:   #E8E4D8;
-  --text-label:     #7A7570;
-  --text-dim:       #4A4845;
-  --border-inset:   #A8A49C;
+  --text-label:     #808080;
+  --text-dim:       #505050;
+  --border-inset:   #AAAAA6;
   --lcd-green:      #4ADE80;
-  --lcd-dim:        #3A3A38;
-  --knob-body:      #3A3835;
-  --knob-marker:    #E8E4D8;
+  --lcd-dim:        #343432;
+  --knob-body:      #ECECEA;
+  --knob-marker:    #222220;
   --toggle-on:      #4ADE80;
-  --toggle-off:     #3A3A38;
+  --toggle-off:     #343432;
 }
 
 * {
@@ -45,21 +45,21 @@ body {
 .device-casing {
   width: 520px;
   min-width: 520px;
-  background: linear-gradient(160deg, #DEDAD2 0%, #C8C4BC 100%);
+  background: linear-gradient(170deg, #DCDCDA 0%, #C4C4C0 100%);
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.6),
-    inset 0 -1px 0 rgba(0,0,0,0.15),
-    0 4px 24px rgba(0,0,0,0.25),
-    0 1px 4px rgba(0,0,0,0.2);
-  border-radius: 12px;
+    inset 0 1px 0 rgba(255,255,255,0.55),
+    inset 0 -2px 0 rgba(0,0,0,0.18),
+    0 8px 32px rgba(0,0,0,0.35),
+    0 2px 6px rgba(0,0,0,0.25);
+  border-radius: 16px;
 }
 
 /* ── LCD panel ── */
 .lcd-panel {
-  background: #141412;
+  background: #111110;
   box-shadow:
-    inset 0 2px 8px rgba(0,0,0,0.8),
-    inset 0 0 0 1px rgba(0,0,0,0.5);
+    inset 0 3px 10px rgba(0,0,0,0.9),
+    inset 0 0 0 1px rgba(0,0,0,0.6);
   border-radius: 4px;
 }
 
@@ -75,12 +75,12 @@ body {
 
 /* ── Hardware button (rest) ── */
 .hw-button {
-  background: linear-gradient(180deg, #CECAC2 0%, #B8B4AC 100%);
+  background: linear-gradient(180deg, #D4D4D0 0%, #BCBCB8 100%);
   box-shadow:
-    0 2px 0 #8A8680,
-    0 3px 4px rgba(0,0,0,0.3),
-    inset 0 1px 0 rgba(255,255,255,0.5);
-  border-radius: 6px;
+    0 3px 0 #868684,
+    0 4px 6px rgba(0,0,0,0.35),
+    inset 0 1px 0 rgba(255,255,255,0.6);
+  border-radius: 8px;
   border: none;
   cursor: pointer;
   font-family: 'DM Mono', monospace;
@@ -91,20 +91,20 @@ body {
 .hw-button:active,
 .hw-button.pressed {
   box-shadow:
-    0 0px 0 #8A8680,
-    inset 0 2px 4px rgba(0,0,0,0.4);
-  transform: translateY(2px);
+    0 0px 0 #868684,
+    inset 0 2px 5px rgba(0,0,0,0.45);
+  transform: translateY(3px);
   transition: none;
 }
 
 /* ── START button (orange) ── */
 .start-button {
-  background: linear-gradient(180deg, #F06020 0%, #C84010 100%);
+  background: linear-gradient(180deg, #FF5500 0%, #CC3800 100%);
   box-shadow:
-    0 3px 0 #882808,
-    0 4px 6px rgba(0,0,0,0.4),
-    inset 0 1px 0 rgba(255,255,255,0.2);
-  border-radius: 6px;
+    0 3px 0 #882400,
+    0 4px 8px rgba(255,85,0,0.35),
+    inset 0 1px 0 rgba(255,255,255,0.25);
+  border-radius: 8px;
   border: none;
   cursor: pointer;
   font-family: 'DM Mono', monospace;
@@ -115,20 +115,20 @@ body {
 .start-button:active,
 .start-button.pressed {
   box-shadow:
-    0 0px 0 #882808,
-    inset 0 2px 4px rgba(0,0,0,0.4);
-  transform: translateY(2px);
+    0 0px 0 #882400,
+    inset 0 2px 5px rgba(0,0,0,0.45);
+  transform: translateY(3px);
   transition: none;
 }
 
 /* ── Dark button (steppers) ── */
 .hw-button-dark {
-  background: linear-gradient(180deg, #3A3A38 0%, #222220 100%);
+  background: linear-gradient(180deg, #303030 0%, #1C1C1A 100%);
   box-shadow:
-    0 2px 0 #111110,
-    0 3px 4px rgba(0,0,0,0.4),
-    inset 0 1px 0 rgba(255,255,255,0.06);
-  border-radius: 4px;
+    0 3px 0 #0A0A08,
+    0 4px 6px rgba(0,0,0,0.5),
+    inset 0 1px 0 rgba(255,255,255,0.07);
+  border-radius: 6px;
   border: none;
   cursor: pointer;
   font-family: 'DM Mono', monospace;
@@ -139,9 +139,9 @@ body {
 .hw-button-dark:active,
 .hw-button-dark.pressed {
   box-shadow:
-    0 0px 0 #111110,
-    inset 0 2px 4px rgba(0,0,0,0.5);
-  transform: translateY(2px);
+    0 0px 0 #0A0A08,
+    inset 0 2px 5px rgba(0,0,0,0.6);
+  transform: translateY(3px);
   transition: none;
 }
 
@@ -160,11 +160,11 @@ body {
 
 /* ── Dot grid (header corner) ── */
 .dot-grid {
-  width: 48px;
-  height: 24px;
-  background-image: radial-gradient(circle, #A8A49C 1px, transparent 1px);
-  background-size: 6px 6px;
-  opacity: 0.6;
+  width: 56px;
+  height: 28px;
+  background-image: radial-gradient(circle, #909090 1.5px, transparent 1.5px);
+  background-size: 7px 7px;
+  opacity: 0.55;
   flex-shrink: 0;
 }
 
@@ -191,11 +191,11 @@ body {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: radial-gradient(circle at 35% 35%, #5A5550, #2A2520);
+  background: radial-gradient(circle at 38% 32%, #FFFFFF, #DCDCDA);
   box-shadow:
-    0 3px 0 #1A1510,
-    0 4px 8px rgba(0,0,0,0.5),
-    inset 0 1px 0 rgba(255,255,255,0.1);
+    0 3px 0 #A0A09E,
+    0 4px 10px rgba(0,0,0,0.4),
+    inset 0 1px 0 rgba(255,255,255,0.9);
   position: relative;
   cursor: grab;
   flex-shrink: 0;

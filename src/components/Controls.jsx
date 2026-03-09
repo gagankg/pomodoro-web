@@ -128,7 +128,7 @@ export default function Controls({
   }
 
   return (
-    <div className="flex flex-col px-3 pt-3 pb-3 gap-0">
+    <div className="flex flex-col px-3 pt-5 pb-5 gap-0">
       {/* ── Row 1: playback + duration + volume ── */}
       <div className="flex items-center justify-between">
         {/* Left group: playback + duration */}
