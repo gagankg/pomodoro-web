@@ -128,87 +128,93 @@ export default function Controls({
   }
 
   return (
-    <div className="flex items-center px-3 py-3 gap-2">
-      {/* START */}
-      <div className="flex flex-col items-center gap-1">
-        <span className="silk-label">{startLabel}</span>
-        <HwButton
-          className="start-button"
-          style={{ width: 48, height: 38, fontSize: 10, fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase' }}
-          onClick={handleStart}
-          ariaLabel={startAriaLabel}
-        >
-          {startLabel}
-        </HwButton>
+    <div className="flex flex-col px-3 pt-3 pb-3 gap-0">
+      {/* ── Row 1: playback + duration + volume ── */}
+      <div className="flex items-center gap-3">
+        {/* START */}
+        <div className="flex flex-col items-center gap-1">
+          <span className="silk-label">{startLabel}</span>
+          <HwButton
+            className="start-button"
+            style={{ width: 48, height: 38, fontSize: 10, fontWeight: 600, letterSpacing: '0.1em', textTransform: 'uppercase' }}
+            onClick={handleStart}
+            ariaLabel={startAriaLabel}
+          >
+            {startLabel}
+          </HwButton>
+        </div>
+
+        {/* RESET */}
+        <div className="flex flex-col items-center gap-1">
+          <span className="silk-label">RESET</span>
+          <HwButton
+            style={{ width: 32, height: 32, fontSize: 14, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+            onClick={handleReset}
+            ariaLabel="Reset timer"
+          >
+            ↺
+          </HwButton>
+        </div>
+
+        {/* SKIP */}
+        <div className="flex flex-col items-center gap-1">
+          <span className="silk-label">SKIP</span>
+          <HwButton
+            style={{ width: 32, height: 32, fontSize: 13, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+            onClick={handleSkip}
+            ariaLabel="Skip to next phase"
+          >
+            ⏭
+          </HwButton>
+        </div>
+
+        {/* Separator */}
+        <div className="hw-separator" style={{ margin: '0 2px' }} />
+
+        {/* FOCUS + BREAK stacked */}
+        <div className="flex flex-col gap-2">
+          <Stepper
+            label="FOCUS"
+            value={focusDuration}
+            onChange={onFocusChange}
+            onSound={(dir) => { onSoundInit?.(); dir === 'up' ? sounds?.stepperUp() : sounds?.stepperDown(); }}
+            ariaLabel="Focus duration in minutes"
+          />
+          <Stepper
+            label="BREAK"
+            value={breakDuration}
+            onChange={onBreakChange}
+            onSound={(dir) => { onSoundInit?.(); dir === 'up' ? sounds?.stepperUp() : sounds?.stepperDown(); }}
+            ariaLabel="Break duration in minutes"
+          />
+        </div>
+
+        {/* Volume knob */}
+        <VolumeKnob
+          volume={volume}
+          onVolumeChange={onVolumeChange}
+          onSoundInit={onSoundInit}
+        />
       </div>
 
-      {/* RESET */}
-      <div className="flex flex-col items-center gap-1">
-        <span className="silk-label">RESET</span>
-        <HwButton
-          style={{ width: 32, height: 32, fontSize: 14, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-          onClick={handleReset}
-          ariaLabel="Reset timer"
-        >
-          ↺
-        </HwButton>
+      {/* ── Divider ── */}
+      <div style={{ borderTop: '1px solid rgba(0,0,0,0.12)', margin: '10px 0 8px' }} />
+
+      {/* ── Row 2: toggles ── */}
+      <div className="flex items-center gap-4">
+        <RockerToggle
+          label="NOTIF"
+          on={notifEnabled}
+          onToggle={() => { onSoundInit?.(); notifEnabled ? sounds?.toggleOff() : sounds?.toggleOn(); onNotifToggle(); }}
+          ariaLabel="Browser notifications"
+        />
+        <RockerToggle
+          label="SND PAUSE"
+          on={soundPauseOnBreak}
+          onToggle={() => { onSoundInit?.(); soundPauseOnBreak ? sounds?.toggleOff() : sounds?.toggleOn(); onSoundPauseToggle(); }}
+          ariaLabel="Pause sound on break"
+        />
       </div>
-
-      {/* SKIP */}
-      <div className="flex flex-col items-center gap-1">
-        <span className="silk-label">SKIP</span>
-        <HwButton
-          style={{ width: 32, height: 32, fontSize: 13, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
-          onClick={handleSkip}
-          ariaLabel="Skip to next phase"
-        >
-          ⏭
-        </HwButton>
-      </div>
-
-      {/* Separator */}
-      <div className="hw-separator" style={{ margin: '0 1px' }} />
-
-      {/* Focus stepper */}
-      <Stepper
-        label="FOCUS"
-        value={focusDuration}
-        onChange={onFocusChange}
-        onSound={(dir) => { onSoundInit?.(); dir === 'up' ? sounds?.stepperUp() : sounds?.stepperDown(); }}
-        ariaLabel="Focus duration in minutes"
-      />
-
-      {/* Break stepper */}
-      <Stepper
-        label="BREAK"
-        value={breakDuration}
-        onChange={onBreakChange}
-        onSound={(dir) => { onSoundInit?.(); dir === 'up' ? sounds?.stepperUp() : sounds?.stepperDown(); }}
-        ariaLabel="Break duration in minutes"
-      />
-
-      {/* Volume knob */}
-      <VolumeKnob
-        volume={volume}
-        onVolumeChange={onVolumeChange}
-        onSoundInit={onSoundInit}
-      />
-
-      {/* NOTIF toggle */}
-      <RockerToggle
-        label="NOTIF"
-        on={notifEnabled}
-        onToggle={() => { onSoundInit?.(); notifEnabled ? sounds?.toggleOff() : sounds?.toggleOn(); onNotifToggle(); }}
-        ariaLabel="Browser notifications"
-      />
-
-      {/* SND PAUSE toggle */}
-      <RockerToggle
-        label="SND PAUSE"
-        on={soundPauseOnBreak}
-        onToggle={() => { onSoundInit?.(); soundPauseOnBreak ? sounds?.toggleOff() : sounds?.toggleOn(); onSoundPauseToggle(); }}
-        ariaLabel="Pause sound on break"
-      />
     </div>
   );
 }
