@@ -337,7 +337,7 @@ export default function App() {
         lineHeight: 1.6,
       }}>
         <p style={{ fontSize: 11, letterSpacing: '0.05em', marginBottom: 10 }}>
-          A Pomodoro timer built to feel like a Teenage Engineering instrument.
+          Work in focused sprints, take short breaks, and get more done.
         </p>
         <div style={{ display: 'flex', gap: 20, justifyContent: 'center', fontSize: 10, letterSpacing: '0.08em' }}>
           <span><span style={{ color: '#7A7570' }}>SPACE</span> start / pause</span>
