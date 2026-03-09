@@ -340,10 +340,28 @@ export default function App() {
           Work in focused sprints, take short breaks, and get more done.
         </p>
         <div style={{ display: 'flex', gap: 20, justifyContent: 'center', fontSize: 10, letterSpacing: '0.08em' }}>
-          <span><span style={{ color: '#7A7570' }}>SPACE</span> start / pause</span>
-          <span><span style={{ color: '#7A7570' }}>R</span> reset</span>
-          <span><span style={{ color: '#7A7570' }}>S</span> skip</span>
-          <span><span style={{ color: '#7A7570' }}>↑ ↓</span> volume</span>
+          {[
+            { key: 'SPACE', label: 'start / pause' },
+            { key: 'R', label: 'reset' },
+            { key: 'S', label: 'skip' },
+            { key: '↑ ↓', label: 'volume' },
+          ].map(({ key, label }) => (
+            <span key={key} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+              <kbd style={{
+                display: 'inline-block',
+                padding: '2px 6px',
+                border: '1px solid #3A3835',
+                borderBottom: '2px solid #2A2825',
+                borderRadius: 4,
+                background: '#1E1E1C',
+                color: '#9A9590',
+                fontSize: 9,
+                lineHeight: '16px',
+                letterSpacing: '0.06em',
+              }}>{key}</kbd>
+              <span style={{ color: '#4A4845' }}>{label}</span>
+            </span>
+          ))}
         </div>
       </div>
     </div>
