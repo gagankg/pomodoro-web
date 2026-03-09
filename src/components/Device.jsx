@@ -90,7 +90,6 @@ export default function Device({
         background: 'linear-gradient(180deg, #D0CCC4 0%, #C2BEB8 100%)',
         borderRadius: 8,
         boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.4), inset 0 -1px 0 rgba(0,0,0,0.1)',
-        minHeight: 96,
       }}>
         <Controls
           timerMode={timerMode}
