@@ -38,7 +38,7 @@ function Stepper({ label, value, onChange, onSound, ariaLabel }) {
       <div className="flex items-center gap-1">
         <HwButton
           className="hw-button-dark"
-          style={{ width: 20, height: 20, fontSize: 14, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+          style={{ width: 24, height: 24, fontSize: 14, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
           onClick={() => { onChange(clampDuration(value - 1)); onSound?.('down'); }}
           ariaLabel={`Decrease ${label} duration`}
         >
@@ -69,7 +69,7 @@ function Stepper({ label, value, onChange, onSound, ariaLabel }) {
 
         <HwButton
           className="hw-button-dark"
-          style={{ width: 20, height: 20, fontSize: 14, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+          style={{ width: 24, height: 24, fontSize: 14, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
           onClick={() => { onChange(clampDuration(value + 1)); onSound?.('up'); }}
           ariaLabel={`Increase ${label} duration`}
         >
@@ -150,7 +150,7 @@ export default function Controls({
           <div className="flex flex-col items-center gap-1">
             <span className="silk-label">RESET</span>
             <HwButton
-              style={{ width: 32, height: 32, fontSize: 14, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+              style={{ width: 38, height: 38, fontSize: 14, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
               onClick={handleReset}
               ariaLabel="Reset timer"
             >
@@ -162,7 +162,7 @@ export default function Controls({
           <div className="flex flex-col items-center gap-1">
             <span className="silk-label">SKIP</span>
             <HwButton
-              style={{ width: 32, height: 32, fontSize: 13, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+              style={{ width: 38, height: 38, fontSize: 13, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
               onClick={handleSkip}
               ariaLabel="Skip to next phase"
             >
