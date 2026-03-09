@@ -1,21 +1,9 @@
 import { useRef, useCallback } from 'react';
 
+// ── Web Audio API (UI sounds) ──
+
 let ctx = null;
 let masterGain = null;
-let noiseBuffer = null;
-let ambientSource = null;
-let ambientGain = null;
-let ambientMode = null;
-
-function createNoiseBuffer(audioCtx) {
-  const bufferSize = audioCtx.sampleRate * 2;
-  const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-  const data = buffer.getChannelData(0);
-  for (let i = 0; i < bufferSize; i++) {
-    data[i] = Math.random() * 2 - 1;
-  }
-  return buffer;
-}
 
 function initAudio() {
   if (ctx) return;
@@ -23,7 +11,6 @@ function initAudio() {
   masterGain = ctx.createGain();
   masterGain.gain.value = 0.5;
   masterGain.connect(ctx.destination);
-  noiseBuffer = createNoiseBuffer(ctx);
 }
 
 function playTone(frequency, durationMs, type = 'square', decayMs = 20, gainLevel = 0.3) {
@@ -53,6 +40,17 @@ function playLayeredClick(highFreq, lowFreq, duration) {
   playTone(lowFreq, duration, 'square', 15, 0.15);
 }
 
+// ── Ambient audio files ──
+
+const AMBIENT_FILES = {
+  AMBIENT: '/audio/guilhermebernardes-caves-of-dawn-10376.mp3',
+  'LO-FI': '/audio/desifreemusic-lo-fi-ambient-music-with-gentle-rain-sounds-377059.mp3',
+  NOISE:   '/audio/tatamusic-restaurant-jazz-cafe-music-486651.mp3',
+  RAIN:    '/audio/lorenzobuczek-sleepy-rain-116521.mp3',
+};
+
+let ambientAudio = null;
+
 export function useSound() {
   const volumeRef = useRef(0.5);
 
@@ -62,22 +60,18 @@ export function useSound() {
 
   const setVolume = useCallback((v) => {
     volumeRef.current = v;
-    if (masterGain) {
-      masterGain.gain.value = v;
-    }
-    if (ambientGain) {
-      ambientGain.gain.value = v * 0.4;
-    }
+    if (masterGain) masterGain.gain.value = v;
+    if (ambientAudio) ambientAudio.volume = v * 0.4;
   }, []);
 
   // ── UI sound events ──
 
   const sounds = {
-    buttonPress: () => playLayeredClick(1800, 180, 20),
-    stepperUp: () => playTone(1200, 25, 'square', 20, 0.2),
-    stepperDown: () => playTone(900, 25, 'square', 20, 0.2),
-    soundSelect: () => playTone(1400, 15, 'square', 10, 0.15),
-    knobTick: () => playTone(2000, 10, 'square', 8, 0.08),
+    buttonPress:     () => playLayeredClick(1800, 180, 20),
+    stepperUp:       () => playTone(1200, 25, 'square', 20, 0.2),
+    stepperDown:     () => playTone(900, 25, 'square', 20, 0.2),
+    soundSelect:     () => playTone(1400, 15, 'square', 10, 0.15),
+    knobTick:        () => playTone(2000, 10, 'square', 8, 0.08),
     toggleOn: () => {
       playTone(2200, 18, 'square', 15, 0.2);
       playTone(160, 18, 'square', 15, 0.15);
@@ -90,8 +84,8 @@ export function useSound() {
       { freq: 440, duration: 60, type: 'sawtooth', decay: 40, gain: 0.25 },
       { freq: 880, duration: 60, type: 'sawtooth', decay: 40, delay: 65, gain: 0.25 },
     ]),
-    pause: () => playTone(330, 40, 'square', 30, 0.2),
-    reset: () => playLayeredClick(1800, 180, 30),
+    pause:           () => playTone(330, 40, 'square', 30, 0.2),
+    reset:           () => playLayeredClick(1800, 180, 30),
     skip: () => playSequence([
       { freq: 550, duration: 25, type: 'square', decay: 15, gain: 0.2 },
       { freq: 770, duration: 25, type: 'square', decay: 15, delay: 30, gain: 0.2 },
@@ -105,13 +99,13 @@ export function useSound() {
       { freq: 660, duration: 80, type: 'sawtooth', decay: 60, delay: 85, gain: 0.25 },
     ]),
     sessionComplete: () => playSequence([
-      { freq: 880, duration: 50, type: 'square', decay: 35, gain: 0.25 },
-      { freq: 1100, duration: 50, type: 'square', decay: 35, delay: 60, gain: 0.25 },
+      { freq: 880,  duration: 50, type: 'square', decay: 35, gain: 0.25 },
+      { freq: 1100, duration: 50, type: 'square', decay: 35, delay: 60,  gain: 0.25 },
       { freq: 1400, duration: 50, type: 'square', decay: 35, delay: 120, gain: 0.25 },
     ]),
     longBreak: () => playSequence([
       { freq: 660, duration: 70, type: 'square', decay: 50, gain: 0.2 },
-      { freq: 440, duration: 70, type: 'square', decay: 50, delay: 80, gain: 0.2 },
+      { freq: 440, duration: 70, type: 'square', decay: 50, delay: 80,  gain: 0.2 },
       { freq: 330, duration: 70, type: 'square', decay: 50, delay: 160, gain: 0.2 },
     ]),
     taskAdded: () => playSequence([
@@ -121,100 +115,33 @@ export function useSound() {
     invalidInput: () => playTone(100, 80, 'sawtooth', 60, 0.2),
   };
 
-  // ── Ambient sound ──
+  // ── Ambient (file-based) ──
 
   const startAmbient = useCallback((mode) => {
-    if (!ctx) return;
     stopAmbient();
     if (mode === 'OFF') return;
-
-    ambientMode = mode;
-    ambientGain = ctx.createGain();
-    ambientGain.gain.value = volumeRef.current * 0.4;
-    ambientGain.connect(ctx.destination);
-
-    if (mode === 'NOISE') {
-      const source = ctx.createBufferSource();
-      source.buffer = noiseBuffer;
-      source.loop = true;
-      source.connect(ambientGain);
-      source.start();
-      ambientSource = source;
-      return;
-    }
-
-    if (mode === 'AMBIENT') {
-      const source = ctx.createBufferSource();
-      source.buffer = noiseBuffer;
-      source.loop = true;
-      const filter = ctx.createBiquadFilter();
-      filter.type = 'lowpass';
-      filter.frequency.value = 800;
-      filter.Q.value = 0.5;
-      source.connect(filter);
-      filter.connect(ambientGain);
-      source.start();
-      ambientSource = source;
-      return;
-    }
-
-    if (mode === 'LO-FI') {
-      const source = ctx.createBufferSource();
-      source.buffer = noiseBuffer;
-      source.loop = true;
-      const filter = ctx.createBiquadFilter();
-      filter.type = 'lowpass';
-      filter.frequency.value = 400;
-      filter.Q.value = 0.7;
-      source.connect(filter);
-      filter.connect(ambientGain);
-      source.start();
-      ambientSource = source;
-      return;
-    }
-
-    if (mode === 'RAIN') {
-      const source = ctx.createBufferSource();
-      source.buffer = noiseBuffer;
-      source.loop = true;
-
-      const bandpass = ctx.createBiquadFilter();
-      bandpass.type = 'bandpass';
-      bandpass.frequency.value = 1400;
-      bandpass.Q.value = 0.8;
-
-      // LFO for rain variation
-      const lfo = ctx.createOscillator();
-      const lfoGain = ctx.createGain();
-      lfo.frequency.value = 1.2;
-      lfoGain.gain.value = 0.15;
-      lfo.connect(lfoGain);
-      lfoGain.connect(ambientGain.gain);
-
-      source.connect(bandpass);
-      bandpass.connect(ambientGain);
-      lfo.start();
-      source.start();
-      ambientSource = source;
-      return;
-    }
+    const src = AMBIENT_FILES[mode];
+    if (!src) return;
+    ambientAudio = new Audio(src);
+    ambientAudio.loop = true;
+    ambientAudio.volume = volumeRef.current * 0.4;
+    ambientAudio.play().catch(() => {});
   }, []);
 
   function stopAmbient() {
-    if (ambientSource) {
-      try { ambientSource.stop(); } catch {}
-      ambientSource = null;
+    if (ambientAudio) {
+      ambientAudio.pause();
+      ambientAudio.currentTime = 0;
+      ambientAudio = null;
     }
-    ambientGain = null;
-    ambientMode = null;
   }
 
   const pauseAmbient = useCallback(() => {
-    if (ambientGain) ambientGain.gain.value = 0;
+    if (ambientAudio) ambientAudio.pause();
   }, []);
 
   const resumeAmbient = useCallback(() => {
-    if (ambientGain) ambientGain.gain.value = volumeRef.current * 0.4;
+    if (ambientAudio) ambientAudio.play().catch(() => {});
   }, []);
 
   const stopAmbientFn = useCallback(() => stopAmbient(), []);
