@@ -199,7 +199,7 @@ export default function Controls({
       </div>
 
       {/* ── Divider ── */}
-      <div style={{ borderTop: '1px solid rgba(0,0,0,0.12)', margin: '10px 0 8px' }} />
+      <div style={{ borderTop: '1px solid rgba(0,0,0,0.12)', margin: '16px 0 14px' }} />
 
       {/* ── Row 2: toggles ── */}
       <div className="flex items-center gap-4">
