@@ -129,16 +129,14 @@ export default function App() {
   }, [volume, sound]);
 
   // ── Sync ambient sound to mode/phase ──
+  // NOTE: startAmbient is called synchronously in handleSoundModeChange (user gesture).
+  // This effect only handles the pause-on-break logic after a track switch.
   useEffect(() => {
     if (!audioInitialized.current) return;
-    if (soundMode === 'OFF') {
-      sound.stopAmbient();
-      return;
+    if (soundMode !== 'OFF') {
+      const isOnBreak = timer.state.phase === 'break' && soundPauseOnBreak;
+      if (isOnBreak) sound.pauseAmbient();
     }
-    // Always switch to the new track, then pause if on break
-    sound.startAmbient(soundMode);
-    const isOnBreak = timer.state.phase === 'break' && soundPauseOnBreak;
-    if (isOnBreak) sound.pauseAmbient();
   }, [soundMode]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // ── Tab visibility ──
@@ -278,7 +276,13 @@ export default function App() {
     initSound();
     sound.sounds.soundSelect();
     setSoundMode(mode);
-    // startAmbient/stopAmbient handled exclusively by the soundMode useEffect
+    // Call play/stop synchronously here (inside user gesture) instead of relying
+    // on the soundMode effect, which runs async and gets blocked by autoplay policy.
+    if (mode === 'OFF') {
+      sound.stopAmbient();
+    } else {
+      sound.startAmbient(mode);
+    }
   }
 
   function handleAddTask({ name, note }) {
