@@ -126,20 +126,16 @@ export default function App() {
   }, [volume, sound]);
 
   // ── Sync ambient sound to mode/phase ──
-  const prevSoundMode = useRef(soundMode);
   useEffect(() => {
     if (!audioInitialized.current) return;
     if (soundMode === 'OFF') {
       sound.stopAmbient();
       return;
     }
+    // Always switch to the new track, then pause if on break
+    sound.startAmbient(soundMode);
     const isOnBreak = timer.state.phase === 'break' && soundPauseOnBreak;
-    if (isOnBreak) {
-      sound.pauseAmbient();
-    } else {
-      sound.startAmbient(soundMode);
-    }
-    prevSoundMode.current = soundMode;
+    if (isOnBreak) sound.pauseAmbient();
   }, [soundMode]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // ── Tab visibility ──
@@ -279,12 +275,7 @@ export default function App() {
     initSound();
     sound.sounds.soundSelect();
     setSoundMode(mode);
-    if (mode === 'OFF') {
-      sound.stopAmbient();
-    } else {
-      const isOnBreak = timer.state.phase === 'break' && soundPauseOnBreak;
-      if (!isOnBreak) sound.startAmbient(mode);
-    }
+    // startAmbient/stopAmbient handled exclusively by the soundMode useEffect
   }
 
   function handleAddTask({ name, note }) {
