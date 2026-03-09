@@ -45,7 +45,7 @@ function playLayeredClick(highFreq, lowFreq, duration) {
 const AMBIENT_FILES = {
   AMBIENT: '/audio/guilhermebernardes-caves-of-dawn-10376.mp3',
   'LO-FI': '/audio/desifreemusic-lo-fi-ambient-music-with-gentle-rain-sounds-377059.mp3',
-  NOISE:   '/audio/tatamusic-restaurant-jazz-cafe-music-486651.mp3',
+  JAZZ:    '/audio/tatamusic-restaurant-jazz-cafe-music-486651.mp3',
   RAIN:    '/audio/lorenzobuczek-sleepy-rain-116521.mp3',
 };
 

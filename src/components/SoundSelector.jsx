@@ -1,4 +1,4 @@
-const MODES = ['OFF', 'AMBIENT', 'LO-FI', 'NOISE', 'RAIN'];
+const MODES = ['OFF', 'AMBIENT', 'LO-FI', 'JAZZ', 'RAIN'];
 
 export default function SoundSelector({ mode, onSelect }) {
   return (
