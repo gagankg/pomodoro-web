@@ -38,8 +38,11 @@ export default function App() {
       sound.init();
       audioInitialized.current = true;
       sound.setVolume(logCurve(volume));
+      if (soundMode !== 'OFF') {
+        sound.startAmbient(soundMode);
+      }
     }
-  }, [sound, volume]);
+  }, [sound, volume, soundMode]);
 
   // ── Timer ──
   const timer = useTimer({

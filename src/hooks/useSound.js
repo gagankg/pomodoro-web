@@ -125,7 +125,7 @@ export function useSound() {
     ambientAudio = new Audio(src);
     ambientAudio.loop = true;
     ambientAudio.volume = volumeRef.current * 0.4;
-    ambientAudio.play().catch(() => {});
+    ambientAudio.play().catch((err) => console.warn('Ambient play failed:', err));
   }, []);
 
   function stopAmbient() {
