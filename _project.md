@@ -12,3 +12,4 @@ A fully functional Pomodoro timer with hardware-instrument aesthetic: fixed 480p
 
 ## Log
 2026-03-08 — Initial project scaffold from INIT.md spec
+2026-03-20 — Open source release: MIT license, README, screenshot, audio credits
